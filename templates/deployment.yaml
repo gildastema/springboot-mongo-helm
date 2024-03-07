@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: {{ .Values.Name }}
+  labels:
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.Name }}
+  replicas: {{ .Values.replicas }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.Name }}
+    spec:
+      containers:
+      - name: spring-mongo-demo
+        image: {{ .Values.image }}
+        ports:
+        - containerPort: 8080
+        env:
+          - name: MONGO_URL
+            valueFrom:
+              configMapKeyRef:
+                name: spring-mongo-config
+                key: mongo_url

@@ -1,0 +1,14 @@
+image: gildastema/spring-mongo-demo:0.1
+Name: spring-mongo
+replicas: 1
+
+service:
+  port: 80
+  type: NodePort
+servicetype: NodePort
+
+config:
+  mongo_url: [url for mongo]
+
+ingress:
+  enabled: false
